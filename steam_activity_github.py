@@ -122,7 +122,7 @@ def upload_artifacts_to_r2(s3) -> dict:
     for path in ARTIFACT_FILES:
         key = path.name
         if not path.exists():
-            print(f"Skipping {key} - not present locally")
+            print("Skipping upload — file not present locally")
             results[key] = "missing"
             continue
 
@@ -135,12 +135,12 @@ def upload_artifacts_to_r2(s3) -> dict:
             if code in {"404", "NoSuchKey"}:
                 remote_hash = None
             else:
-                print(f"Failed remote hash check for {key}: {e}")
+                print(f"Failed remote hash check: {e}")
                 results[key] = "error"
                 continue
 
         if local_hash == remote_hash:
-            print(f"No change for {key} - skipping upload")
+            print("No change — skipping upload")
             results[key] = "no-change"
             continue
 
@@ -152,10 +152,10 @@ def upload_artifacts_to_r2(s3) -> dict:
                 key,
                 ExtraArgs={"ACL": "public-read", "ContentType": content_type},
             )
-            print(f"Uploaded {key} to R2")
+            print("Uploaded artifact to R2")
             results[key] = "uploaded"
         except Exception as e:
-            print(f"Failed to upload {key}: {e}")
+            print(f"Failed R2 upload: {e}")
             results[key] = "error"
 
     return results
