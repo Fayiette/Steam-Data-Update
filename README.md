@@ -116,4 +116,4 @@ This project is licensed under the **GNU Affero General Public License v3.0** â€
 
 ## Contributing and forks
 
-Pull requests is disabled; forks are welcome. Preserve copyright and license notices in any distribution you make. !
+Pull requests is disabled; forks are welcome. Preserve copyright and license notices in any distribution you make.
